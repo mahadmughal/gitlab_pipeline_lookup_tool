@@ -36,4 +36,8 @@ pip install -r requirements.txt
 ```bash
 PROJECT_ID=your_project_id
 GITLAB_ACCESS_TOKEN=your_gitlab_token
+GITLAB_USERNAME=your_gitlab_username
+GITLAB_PASSWORD=your_gitlab_password
+GITLAB_ACCESS_TOKEN=your_gitlab_access_token
+PROJECT_ID=your_gitlab_project_id
 ```
