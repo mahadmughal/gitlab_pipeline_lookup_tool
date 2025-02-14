@@ -41,14 +41,14 @@ PROJECT_ID=your_gitlab_project_id
 5. Run the script:
 ```bash
 # Search for a specific task:
-python get_specific_pipeline.py --task-name "NEOP-20473"
+python3 get_specific_pipeline.py --task-name "NEOP-20473"
 
 # Search for a task in a specific environment:
-python get_specific_pipeline.py --task-name "NEOP-20473" --environment production
+python3 get_specific_pipeline.py --task-name "NEOP-20473" --environment production
 
 # Search for a task with specific status:
-python get_specific_pipeline.py --task-name "NEOP-20473" --status success
+python3 get_specific_pipeline.py --task-name "NEOP-20473" --status success
 
 # Combine multiple filters:
-python get_specific_pipeline.py --task-name "NEOP-20473" --environment uat --status failed
+python3 get_specific_pipeline.py --task-name "NEOP-20473" --environment uat --status failed
 ```
