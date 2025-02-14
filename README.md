@@ -8,7 +8,7 @@ A Python script to search and filter GitLab pipelines by task name, environment,
 
 1. Clone the repository:
 ```bash
-git clone <your-repository-url>
+git clone git@github.com:mahadmughal/gitlab_pipeline_automation_tool.git
 cd gitlab-pipeline-lookup
 ```
 
