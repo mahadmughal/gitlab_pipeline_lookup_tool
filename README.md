@@ -27,8 +27,13 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
+3. Install the required packages:
+```bash
 pip install -r requirements.txt
+```
 
+4. Setup environment variables:
+```bash
 PROJECT_ID=your_project_id
 GITLAB_ACCESS_TOKEN=your_gitlab_token
-
+```
