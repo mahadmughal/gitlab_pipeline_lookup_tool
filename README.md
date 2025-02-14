@@ -5,10 +5,6 @@ A Python script to search and filter GitLab pipelines by task name, environment,
 ## Prerequisites
 
 - Python 3.6 or higher
-- Access to a GitLab instance
-- GitLab personal access token with appropriate permissions
-
-## Installation
 
 1. Clone the repository:
 ```bash
