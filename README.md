@@ -37,3 +37,18 @@ GITLAB_PASSWORD=your_gitlab_password
 GITLAB_ACCESS_TOKEN=your_gitlab_access_token
 PROJECT_ID=your_gitlab_project_id
 ```
+
+5. Run the script:
+```bash
+# Search for a specific task:
+python pipeline_lookup.py --task-name "NEOP-20473"
+
+# Search for a task in a specific environment:
+python pipeline_lookup.py --task-name "NEOP-20473" --environment production
+
+# Search for a task with specific status:
+python pipeline_lookup.py --task-name "NEOP-20473" --status success
+
+# Combine multiple filters:
+python pipeline_lookup.py --task-name "NEOP-20473" --environment uat --status failed
+```
