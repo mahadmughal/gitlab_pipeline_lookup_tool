@@ -14,7 +14,10 @@ A Python script to search and filter GitLab pipelines by task name, environment,
 ```bash
 git clone <your-repository-url>
 cd gitlab-pipeline-lookup
+```
 
+2. Create a virtual environment:
+```bash
 # On Windows
 python -m venv venv
 .\venv\Scripts\activate
@@ -22,6 +25,7 @@ python -m venv venv
 # On macOS/Linux
 python3 -m venv venv
 source venv/bin/activate
+```
 
 pip install -r requirements.txt
 
