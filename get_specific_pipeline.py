@@ -9,7 +9,7 @@ load_dotenv()
 
 
 class GitlabPipelineLookup:
-    def __init__(self, status=None, ref=None, updated_after=None, updated_before=None):
+    def __init__(self, status=None, ref=None, updated_after=None, updated_before=None, username=None):
         self.project_id = os.getenv('PROJECT_ID')
         self.gitlab_access_token = os.getenv('GITLAB_ACCESS_TOKEN')
         self.gitlab_url = f'https://devops.housing.sa:8083/api/v4/projects/{self.project_id}/pipelines'
@@ -34,6 +34,8 @@ class GitlabPipelineLookup:
                 filters['status'] = status
             if ref:
                 filters['ref'] = ref
+            if username:
+                filters['username'] = username
             if updated_after:
                 filters['updated_after'] = updated_after
             if updated_before:
@@ -95,12 +97,14 @@ def main():
     parser.add_argument('--updated-after',
                         type=parse_date,
                         help='Show pipelines updated after date (YYYY-MM-DD)')
+    parser.add_argument('--username',
+                        help='Filter pipelines by username who triggered them')
 
     args = parser.parse_args()
 
     # Create GitlabPipelineLookup instance with optional status filter
     gitlab_lookup = GitlabPipelineLookup(
-        status=args.status, ref=args.environment, updated_before=args.updated_before, updated_after=args.updated_after)
+        status=args.status, ref=args.environment, updated_before=args.updated_before, updated_after=args.updated_after, username=args.username)
     gitlab_lookup.get_pipeline_by_task_name(args.task_name)
 
 
