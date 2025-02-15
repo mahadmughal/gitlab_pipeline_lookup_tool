@@ -2,13 +2,14 @@ import os
 import gitlab
 import argparse
 from dotenv import load_dotenv
+from datetime import datetime
 
 # Load environment variables from .env file
 load_dotenv()
 
 
 class GitlabPipelineLookup:
-    def __init__(self, status=None, ref=None):
+    def __init__(self, status=None, ref=None, updated_after=None, updated_before=None):
         self.project_id = os.getenv('PROJECT_ID')
         self.gitlab_access_token = os.getenv('GITLAB_ACCESS_TOKEN')
         self.gitlab_url = f'https://devops.housing.sa:8083/api/v4/projects/{self.project_id}/pipelines'
@@ -33,6 +34,10 @@ class GitlabPipelineLookup:
                 filters['status'] = status
             if ref:
                 filters['ref'] = ref
+            if updated_after:
+                filters['updated_after'] = updated_after
+            if updated_before:
+                filters['updated_before'] = updated_before
 
             self.pipelines = self.project.pipelines.list(**filters)
         except Exception as e:
@@ -65,6 +70,14 @@ class GitlabPipelineLookup:
             return None
 
 
+def parse_date(date_str):
+    """Parse date string in YYYY-MM-DD format"""
+    try:
+        return datetime.strptime(date_str, '%Y-%m-%d').isoformat()
+    except ValueError as e:
+        raise argparse.ArgumentTypeError(f"Invalid date format: {e}")
+
+
 def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description='GitLab Pipeline Lookup Tool')
@@ -76,13 +89,19 @@ def main():
     parser.add_argument('--status', choices=[
         'created', 'pending', 'success', 'failed', 'canceled'],
         help='Filter pipelines by status')
+    parser.add_argument('--updated-before',
+                        type=parse_date,
+                        help='Show pipelines updated before date (YYYY-MM-DD)')
+    parser.add_argument('--updated-after',
+                        type=parse_date,
+                        help='Show pipelines updated after date (YYYY-MM-DD)')
 
     args = parser.parse_args()
 
     # Create GitlabPipelineLookup instance with optional status filter
     gitlab_lookup = GitlabPipelineLookup(
-        status=args.status, ref=args.environment)
-    pipeline = gitlab_lookup.get_pipeline_by_task_name(args.task_name)
+        status=args.status, ref=args.environment, updated_before=args.updated_before, updated_after=args.updated_after)
+    gitlab_lookup.get_pipeline_by_task_name(args.task_name)
 
 
 if __name__ == "__main__":
