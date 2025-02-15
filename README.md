@@ -63,6 +63,9 @@ python3 get_specific_pipeline.py --task-name "NEOP-20473" --updated-before 2025-
 # Search for a task with before specific date:
 python3 get_specific_pipeline.py --task-name "NEOP-20473" --updated-after 2025-02-13
 
+# Search for a task with username(who triggered a pipeline):
+python3 get_specific_pipeline.py --task-name "NEOP-20473" --username 'm.asif'
+
 # Combine multiple filters:
-python3 get_specific_pipeline.py --task-name "NEOP-20473" --environment uat --status failed --updated-before 2025-02-13 --updated-after 2025-02-13
+python3 get_specific_pipeline.py --task-name "NEOP-20473" --environment uat --status failed --updated-before 2025-02-13 --updated-after 2025-02-13 --username 'm.asif'
 ```
