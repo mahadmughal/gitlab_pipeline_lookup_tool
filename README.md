@@ -28,7 +28,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Setup environment variables:
+4. Setup environment variables by creating .env file in root directory:
 ```bash
 PROJECT_ID=your_project_id
 GITLAB_ACCESS_TOKEN=your_gitlab_token
