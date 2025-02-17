@@ -9,6 +9,7 @@ load_dotenv()
 
 
 class GitlabPipelineLookup:
+
     def __init__(self, status=None, ref=None, updated_after=None, updated_before=None, username=None):
         self.project_id = os.getenv('PROJECT_ID')
         self.gitlab_access_token = os.getenv('GITLAB_ACCESS_TOKEN')
@@ -59,10 +60,10 @@ class GitlabPipelineLookup:
                 pipeline_name = pipeline.name
                 if pipeline_name is not None and pipeline_name != '':
                     if task_name in pipeline_name:
-                        target_pipelines.append(pipeline.attributes)
+                        target_pipelines.append(pipeline)
 
             if target_pipelines:
-                print(f"Pipelines found: {target_pipelines}")
+                self.display_pipelines(target_pipelines)
                 return target_pipelines
 
             print(f"No pipeline found with task name: {task_name}")
@@ -70,6 +71,19 @@ class GitlabPipelineLookup:
         except Exception as e:
             print(f"Unexpected error: {e}")
             return None
+
+    def display_pipelines(self, target_pipelines):
+        print("\nFound Pipelines:")
+        print("-" * 50)
+
+        for pipeline in target_pipelines:
+            print(f"ID: {pipeline.id}")
+            print(f"Status: {pipeline.status}")
+            print(f"Environment: {pipeline.ref}")
+            print(f"Name: {pipeline.name}")
+            print(f"Creation date: {pipeline.created_at}")
+            print(f"Link: {pipeline.web_url}")
+            print("-" * 50)
 
 
 def parse_date(date_str):
