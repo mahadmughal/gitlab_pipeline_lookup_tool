@@ -127,6 +127,7 @@ A Python script to search and filter GitLab pipelines by task name, environment,
    GITLAB_ACCESS_TOKEN=your_gitlab_token
    GITLAB_USERNAME=your_gitlab_username
    GITLAB_PASSWORD=your_gitlab_password
+   GITLAB_BASE_URL=your_gitlab_base_url
    ```
 
 ## Usage
