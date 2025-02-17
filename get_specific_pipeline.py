@@ -13,7 +13,8 @@ class GitlabPipelineLookup:
     def __init__(self, status=None, ref=None, updated_after=None, updated_before=None, username=None):
         self.project_id = os.getenv('PROJECT_ID')
         self.gitlab_access_token = os.getenv('GITLAB_ACCESS_TOKEN')
-        self.gitlab_url = f'https://devops.housing.sa:8083/api/v4/projects/{self.project_id}/pipelines'
+        self.gitlab_base_url = os.getenv('GITLAB_BASE_URL')
+        self.gitlab_url = f'{self.gitlab_base_url}api/v4/projects/{self.project_id}/pipelines'
         print("what project id: ", self.project_id)
         print("what access token: ", self.gitlab_access_token)
         self.headers = {
@@ -21,7 +22,7 @@ class GitlabPipelineLookup:
         }
         # Configure GitLab client
         self.gl = gitlab.Gitlab(
-            url='https://devops.housing.sa:8083/',
+            url=self.gitlab_base_url,
             private_token=self.gitlab_access_token
         )
         self.gl.auth()
